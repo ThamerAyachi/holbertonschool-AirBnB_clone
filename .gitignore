@@ -1,5 +1,6 @@
 # development files
 .vscode
+__pycache__
 
 # testing files
 *main.py

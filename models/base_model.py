@@ -9,8 +9,8 @@ class BaseModel:
 
     def __init__(self) -> None:
         self.id = str(uuid.uuid4())
-        self.create_at = datetime.datetime.now()
-        self.update_at = self.create_at
+        self.created_at = datetime.datetime.now()
+        self.updated_at = self.created_at
 
     def __str__(self) -> str:
         return "[{}] ({}) {}".format(
@@ -21,12 +21,12 @@ class BaseModel:
 
     def save(self) -> None:
         """Update 'update_at' to current time"""
-        self.update_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
         """Make class to dictionary"""
         attributes = self.__dict__.copy()
         attributes["__class__"] = self.__class__.__name__
-        attributes["create_at"] = self.create_at.isoformat()
-        attributes["update_at"] = self.update_at.isoformat()
+        attributes["created_at"] = self.created_at.isoformat()
+        attributes["updated_at"] = self.updated_at.isoformat()
         return attributes
