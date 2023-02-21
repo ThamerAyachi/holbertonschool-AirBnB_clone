@@ -4,6 +4,7 @@ Unittest to test FileStorage class
 """
 import unittest
 import os
+import json
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
@@ -29,9 +30,20 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsNotNone(all_objs[key])
 
     def test_save(self):
-        storage = FileStorage()
-        storage.save()
-        self.assertTrue(os.path.exists('file.json'))
+        """Test that save properly saves objects to file.json"""
+        os.remove("file.json")
+        new_dict = {}
+        instance = BaseModel()
+        instance_key = instance.__class__.__name__ + "." + instance.id
+        new_dict[instance_key] = instance
+        FileStorage._FileStorage__objects = new_dict
+        self.storage.save()
+        for key, value in new_dict.items():
+            new_dict[key] = value.to_dict()
+        string = json.dumps(new_dict)
+        with open("file.json", "r") as f:
+            js = f.read()
+        self.assertEqual(json.loads(string), json.loads(js))
 
     def test_reload(self):
         storage1 = FileStorage()
