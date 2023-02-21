@@ -2,6 +2,7 @@
 """Create Base Class"""
 import uuid
 import datetime
+import models
 
 
 class BaseModel:
@@ -23,6 +24,8 @@ class BaseModel:
                     value = datetime.datetime.strptime(value, date_format)
 
                 setattr(self, key, value)
+        else:
+            models.storage.new(self)
 
     def __str__(self) -> str:
         return "[{}] ({}) {}".format(
