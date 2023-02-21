@@ -11,7 +11,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs) -> None:
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
-        self.updated_at = self.created_at
+        self.updated_at = datetime.datetime.now()
 
         if kwargs:
             for key, value in kwargs.items():
@@ -38,6 +38,7 @@ class BaseModel:
     def save(self) -> None:
         """Update 'update_at' to current time"""
         self.updated_at = datetime.datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """Make class to dictionary"""
