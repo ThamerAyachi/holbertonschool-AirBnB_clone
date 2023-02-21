@@ -26,6 +26,7 @@ class BaseModel:
                 setattr(self, key, value)
         else:
             models.storage.new(self)
+        models.storage.save()
 
     def __str__(self) -> str:
         return "[{}] ({}) {}".format(

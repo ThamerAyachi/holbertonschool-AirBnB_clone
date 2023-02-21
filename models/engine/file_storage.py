@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 """Create FileStorage Class"""
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
     """FileStorage Class"""
+
+    __file_path: str = "file.json"
+    __objects: object = {}
 
     def __init__(self) -> None:
         pass
@@ -37,10 +41,13 @@ class FileStorage:
         deserializes the JSON file to __objects
         """
         data_dict = {}
+        classes = {
+            "BaseModel": BaseModel,
+        }
         try:
             with open(self.__file_path, 'r') as file:
                 data_dict = json.load(file)
                 for key, value in data_dict.items():
-                    self.__objects[key] = value
+                    self.__objects[key] = classes[value['__class__']](**value)
         except FileNotFoundError:
             pass
