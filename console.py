@@ -16,6 +16,10 @@ class HBNBCommand (cmd.Cmd):
         """Quit command to exit the program\n"""
         return True
 
+    def emptyline(self):
+        '''Prevents repeat of previous input.'''
+        pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
