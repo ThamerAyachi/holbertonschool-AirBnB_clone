@@ -86,8 +86,11 @@ class HBNBCommand (cmd.Cmd):
                 if args[1] not in str(new_dict):
                     print("** no instance found **")
                 else:
-                    del new_dict[f"{args[0]}.{args[1]}"]
-                    models.storage.save()
+                    try:
+                        del new_dict[f"{args[0]}.{args[1]}"]
+                        models.storage.save()
+                    except KeyError:
+                        print("** no instance found **")
 
     def do_all(self, line):
         """ Prints all string representation of all instances"""
