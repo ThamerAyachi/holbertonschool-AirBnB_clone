@@ -55,7 +55,7 @@ class HBNBCommand (cmd.Cmd):
                     print(my_dict[f"{model_name}.{model_id}"])
 
     def do_destroy(self, arg):
-        '''Deletes an instance based on the class name and id,'''
+        '''Deletes an instance based on the class name and id'''
         args = arg.split()
 
         if (len(args) == 0):
@@ -73,6 +73,56 @@ class HBNBCommand (cmd.Cmd):
                 else:
                     del new_dict[f"{args[0]}.{args[1]}"]
                     models.storage.save()
+
+    def do_all(self, line):
+        """ Prints all string representation of all instances"""
+        if line not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            data = []
+            all_data = models.storage.all()
+            for key, value in all_data.items():
+                if line in str(value):
+                    data.append(str(value))
+            print(data)
+
+    def do_update(self, arg):
+        """Updates an instance based on the class name and id"""
+        args = arg.split()
+        data = models.storage.all()
+
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in self.classes:
+            print("** class doesn't exist **")
+        elif len(args) < 2:
+            print("** instance id missing **")
+        else:
+            i = 0
+            for key, value in data.items():
+                if args[1] == key.split(".")[1]:
+                    i += 1
+                    attribute_value = ""
+                    if len(args) < 3:
+                        print("** attribute name missing **")
+                    elif len(args) < 4:
+                        print("** value missing **")
+                    else:
+                        if len(args) > 4:
+                            for i in range(len(args) - 3):
+                                attribute_value += (args[i +
+                                                    3].replace('\"', ''))
+                                if i < (len(args) - 4):
+                                    attribute_value += " "
+                        else:
+                            attribute_value = args[3].replace('\"', '')
+
+                        (data[f"{args[0]}.{args[1]}"]).__dict__[
+                            args[2]] = attribute_value
+                        models.storage.save()
+                    break
+            if i == 0:
+                print("** no instance found **")
 
 
 if __name__ == "__main__":
