@@ -2,6 +2,7 @@
 """Entry point of Console"""
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 import models
 
 
@@ -10,7 +11,8 @@ class HBNBCommand (cmd.Cmd):
 
     prompt = '(hbnb) '
     classes = {
-        "BaseModel": BaseModel
+        "BaseModel": BaseModel,
+        "User": User
     }
 
     def do_quit(self, line):

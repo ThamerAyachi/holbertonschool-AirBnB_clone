@@ -2,6 +2,7 @@
 """Create FileStorage Class"""
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -43,6 +44,7 @@ class FileStorage:
         data_dict = {}
         classes = {
             "BaseModel": BaseModel,
+            "User": User
         }
         try:
             with open(self.__file_path, 'r') as file:
