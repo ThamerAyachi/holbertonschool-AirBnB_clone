@@ -64,7 +64,10 @@ class HBNBCommand (cmd.Cmd):
                 if model_id not in str(my_dict):
                     print("** no instance found **")
                 else:
-                    print(my_dict[f"{model_name}.{model_id}"])
+                    try:
+                        print(my_dict[f"{model_name}.{model_id}"])
+                    except KeyError:
+                        print("** no instance found **")
 
     def do_destroy(self, arg):
         '''Deletes an instance based on the class name and id'''
