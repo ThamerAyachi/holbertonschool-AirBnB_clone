@@ -13,8 +13,8 @@ from models.state import State
 class FileStorage:
     """FileStorage Class"""
 
-    __file_path: str = "file.json"
-    __objects: object = {}
+    __file_path = "file.json"
+    __objects = {}
 
     def __init__(self) -> None:
         pass

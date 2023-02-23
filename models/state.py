@@ -6,8 +6,8 @@ from models.base_model import BaseModel
 class State (BaseModel):
     """State Class"""
 
-    name: str = ""
-    
+    name = ""
+
     def __init__(self, *args, **kwargs):
         '''This is the initialization function.
         '''

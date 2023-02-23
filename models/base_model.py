@@ -15,7 +15,7 @@ class BaseModel:
 
         if kwargs:
             for key, value in kwargs.items():
-                date_format: str = "%Y-%m-%dT%H:%M:%S.%f"
+                date_format = "%Y-%m-%dT%H:%M:%S.%f"
 
                 if key == "__class__":
                     continue
