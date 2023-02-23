@@ -7,3 +7,8 @@ class State (BaseModel):
     """State Class"""
 
     name: str = ""
+    
+    def __init__(self, *args, **kwargs):
+        '''This is the initialization function.
+        '''
+        super().__init__(*args, **kwargs)
